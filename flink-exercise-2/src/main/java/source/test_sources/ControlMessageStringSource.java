@@ -35,6 +35,6 @@ public class ControlMessageStringSource implements SourceFunction<String> {
 
         };
 
-        Arrays.stream(messages).forEach(message -> System.out.println(message));
+        Arrays.stream(messages).forEach(System.out::println);
     }
 }

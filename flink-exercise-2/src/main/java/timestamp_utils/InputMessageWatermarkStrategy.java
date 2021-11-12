@@ -10,10 +10,6 @@ public class InputMessageWatermarkStrategy implements WatermarkStrategy<InputMes
     Boolean eventTime;
     String jsonTimestampField;
 
-//    public InputMessageWatermarkStrategy(Boolean eventTime, String jsonTimestampField) {
-//        this.eventTime = eventTime;
-//        this.jsonTimestampField = jsonTimestampField;
-//    }
 
     public InputMessageWatermarkStrategy(ParameterTool parameterTool) {
         this.eventTime = parameterTool.getBoolean("event_time", Boolean.TRUE);
@@ -42,6 +38,6 @@ public class InputMessageWatermarkStrategy implements WatermarkStrategy<InputMes
 
     @Override
     public TimestampAssigner<InputMessage> createTimestampAssigner(TimestampAssignerSupplier.Context context) {
-        return (element, recordTimestamp) -> eventTime? Long.parseLong(element.getFieldValue(jsonTimestampField)) : System.currentTimeMillis();
+        return (element, recordTimestamp) -> eventTime ? Long.parseLong(element.getFieldValue(jsonTimestampField)) : System.currentTimeMillis();
     }
 }

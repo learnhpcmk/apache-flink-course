@@ -68,7 +68,7 @@ public class Rule implements Serializable
         return ((this.filters == rhs.filters)||((this.filters!= null)&&this.filters.equals(rhs.filters)));
     }
 
-    public boolean checkRule(InputMessage value) {
-        return filters.stream().allMatch(filter -> filter.check(value));
+    public boolean checkRule(InputMessage inputMessage) {
+        return filters.stream().allMatch(filter -> filter.check(inputMessage));
     }
 }

@@ -4,7 +4,7 @@ from kafka import KafkaConsumer
 
 # Creation of consumer in Apache Kafka
 consumer = KafkaConsumer(
-    'input_data',
+    'data_topic',
     bootstrap_servers=['localhost:9092'],
     auto_offset_reset='earliest',
     enable_auto_commit=True,
@@ -17,5 +17,5 @@ print (topics)
 
 
 for message in consumer:
-    print (message.value)
+    print (message.key, message.value)
 

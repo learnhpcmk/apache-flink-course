@@ -66,7 +66,7 @@ public class DynamicConfig2 {
                 .window(new DynamicWindowAssigner(eventTime))
                 .apply(new DynamicStatisticalAnalysisWindowFunction());
 //
-//        result.print();
+        result.print();
 
         env.execute(DynamicConfig2.class.getName());
     }

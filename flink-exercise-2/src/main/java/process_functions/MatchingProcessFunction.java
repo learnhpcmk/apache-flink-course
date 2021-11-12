@@ -21,7 +21,7 @@ public class MatchingProcessFunction extends BroadcastProcessFunction<InputMessa
     public void processElement(InputMessage inputMessage, ReadOnlyContext ctx, Collector<MatchedMessage> out) throws Exception {
         List<ControlMessage> controlMessages = getAllControlMessagesFromState(ctx);
 
-        controlMessages.stream()
+            controlMessages.stream()
                 .filter(controlMessage -> controlMessage.getRule().checkRule(inputMessage))
                 .forEach(controlMessage -> out.collect(new MatchedMessage(controlMessage, inputMessage)));
     }

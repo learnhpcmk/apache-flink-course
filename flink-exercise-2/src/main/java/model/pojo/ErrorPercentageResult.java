@@ -18,6 +18,12 @@ public class ErrorPercentageResult implements Serializable
     @SerializedName("percentage")
     @Expose
     private Double percentage;
+    @SerializedName("start_timestamp")
+    @Expose
+    private Long startTimestamp;
+    @SerializedName("end_timestamp")
+    @Expose
+    private Long endTimestamp;
     private final static long serialVersionUID = -2887943938376976853L;
 
     /**
@@ -38,6 +44,13 @@ public class ErrorPercentageResult implements Serializable
         this.percentage = percentage;
     }
 
+    public ErrorPercentageResult(String system, Double percentage, Long startTimestamp, Long endTimestamp) {
+        this.system = system;
+        this.percentage = percentage;
+        this.startTimestamp = startTimestamp;
+        this.endTimestamp = endTimestamp;
+    }
+
     public String getSystem() {
         return system;
     }
@@ -52,6 +65,26 @@ public class ErrorPercentageResult implements Serializable
 
     public void setPercentage(Double percentage) {
         this.percentage = percentage;
+    }
+
+    public Long getStartTimestamp() {
+        return startTimestamp;
+    }
+
+    public void setStartTimestamp(Long startTimestamp) {
+        this.startTimestamp = startTimestamp;
+    }
+
+    public Long getEndTimestamp() {
+        return endTimestamp;
+    }
+
+    public void setEndTimestamp(Long endTimestamp) {
+        this.endTimestamp = endTimestamp;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     @Override

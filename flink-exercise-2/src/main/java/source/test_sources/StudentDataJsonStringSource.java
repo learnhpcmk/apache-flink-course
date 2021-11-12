@@ -14,12 +14,13 @@ public class StudentDataJsonStringSource implements SourceFunction<String> {
     public StudentDataJsonStringSource() {
 
         courses = Arrays.asList("SP", "VVI", "K1", "DM1", "PV", "AOK", "OOP", "DM2", "K2", "OVD", "KK");
-        this.nOfRecords = 100;
+        this.nOfRecords = 10000;
         alreadyUsed = new HashMap<>();
 
     }
 
     private String createIndex() {
+        //151020
         return String.format("%d%d%03d",
                 random.nextInt(6)+15,
                 random.nextInt(7)+1,
@@ -44,6 +45,6 @@ public class StudentDataJsonStringSource implements SourceFunction<String> {
 
     @Override
     public void cancel() {
-
+        //DO NOTHING
     }
 }

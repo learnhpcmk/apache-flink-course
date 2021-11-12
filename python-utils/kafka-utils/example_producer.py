@@ -10,21 +10,23 @@ categories = ['A', 'B', 'C', 'D']
 bootstrap_servers = ['localhost:9092']
 
 producer = KafkaProducer(bootstrap_servers=bootstrap_servers,
-                         value_serializer=lambda x: x.encode("UTF-8"))
+												 key_serializer=lambda x: x.encode("UTF-8"),
+												 value_serializer=lambda x: x.encode("UTF-8"))
+
 
 def create_data_sample():
-    result = str({"category": categories[np.random.randint(0, len(categories))],
-                  "timestamp": math.trunc(datetime.now().timestamp()*1000),
-                  "value": np.random.randint(10, 100)})
-    print (result)
-    return result.replace("'", "\"")
+	category = categories[np.random.randint(0, len(categories))]
+	result = str({"category": category,
+								"timestamp": math.trunc(datetime.now().timestamp() * 1000),
+								"value": np.random.randint(10, 100)})
+	print(result)
+	return category, result.replace("'", "\"")
 
 
 for i in range(1, 10000):
-    value = create_data_sample()
-    producer.send("data_topic", value=value)
+	category, value = create_data_sample()
+	producer.send("data_topic", key=category, value=value)
 
-    time.sleep(0.1)
+	time.sleep(0.1)
 
-# file.close()
 print("DONE")

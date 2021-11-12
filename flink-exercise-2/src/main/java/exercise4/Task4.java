@@ -36,7 +36,6 @@ public class Task4 {
         DataStream<Log> logsWithSeverityStream = logsStream.keyBy(Log::getSystem).connect(broadcastStream)
                 .process(new AssignSeverityToLogsProcess());
 
-
         DataStream<SeverityStatisticsResult> result = logsWithSeverityStream
                 .filter(log -> log.getSeverity()!=null)
                 .keyBy(Log::getSystem)

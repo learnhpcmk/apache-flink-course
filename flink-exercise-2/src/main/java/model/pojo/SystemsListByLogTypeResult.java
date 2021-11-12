@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Generated;
+
+import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -69,26 +71,7 @@ public class SystemsListByLogTypeResult implements Serializable
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(SystemsListByLogTypeResult.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
-        sb.append("logType");
-        sb.append('=');
-        sb.append(((this.logType == null)?"<null>":this.logType));
-        sb.append(',');
-        sb.append("systems");
-        sb.append('=');
-        sb.append(((this.systems == null)?"<null>":this.systems));
-        sb.append(',');
-        sb.append("timespan");
-        sb.append('=');
-        sb.append(((this.timespan == null)?"<null>":this.timespan));
-        sb.append(',');
-        if (sb.charAt((sb.length()- 1)) == ',') {
-            sb.setCharAt((sb.length()- 1), ']');
-        } else {
-            sb.append(']');
-        }
-        return sb.toString();
+        return new Gson().toJson(this, SystemsListByLogTypeResult.class);
     }
 
     @Override

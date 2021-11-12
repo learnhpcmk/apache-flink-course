@@ -129,6 +129,9 @@ public class Filter implements Serializable {
             if (operator.equals(CONTAINS)) {
                 return inputMessageValue.toLowerCase().contains(value.toLowerCase());
             }
+            if (operator.equals(NOT_EQUAL)){
+                return !inputMessageValue.equalsIgnoreCase(value);
+            }
         } else { //numbers
             Double inputMessageValue = Double.parseDouble(inputMessage.getFieldValue(property));
             Double filterValue = Double.parseDouble(value);
@@ -142,6 +145,8 @@ public class Filter implements Serializable {
                 return inputMessageValue > filterValue;
             else if (operator.equals(EQUAL))
                 return inputMessageValue.doubleValue() == filterValue.doubleValue();
+            else if (operator.equalsIgnoreCase(NOT_EQUAL))
+                return inputMessageValue.doubleValue() != filterValue.doubleValue();
         }
 
         return false;

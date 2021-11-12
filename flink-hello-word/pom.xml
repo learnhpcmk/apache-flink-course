@@ -6,7 +6,7 @@
 
     <groupId>mk.ukim.finki</groupId>
     <artifactId>flink-hello-word</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -137,7 +137,7 @@
                             </filters>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>org.myorg.quickstart.StreamingJob</mainClass>
+                                    <mainClass>HelloWorld</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

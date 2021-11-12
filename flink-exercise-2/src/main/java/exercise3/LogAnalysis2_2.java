@@ -1,6 +1,7 @@
 package exercise3;
 
 import com.google.gson.Gson;
+import model.pojo.ErrorPercentageResult;
 import model.pojo.ErrorPercentageResultWithTimestamps;
 import model.pojo.Log;
 import org.apache.flink.streaming.api.datastream.DataStream;
@@ -25,7 +26,7 @@ public class LogAnalysis2_2 {
                 .map(value -> new Gson().fromJson(value, Log.class))
                 .assignTimestampsAndWatermarks(new LogTimestampAndWatermarkStrategy());
 
-        SingleOutputStreamOperator<ErrorPercentageResultWithTimestamps> result = logsStream.keyBy(Log::getSystem)
+        SingleOutputStreamOperator<ErrorPercentageResult> result = logsStream.keyBy(Log::getSystem)
                 .window(TumblingEventTimeWindows.of(Time.seconds(3)))
                 .apply(new ErrorPercentageWindowFunction());
         result.print();

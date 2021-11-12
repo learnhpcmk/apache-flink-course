@@ -10,14 +10,14 @@ import source.schemas.RuleStatisticsResultSerializationSchema;
 
 public class KafkaSinkStream {
 
-    public static SinkFunction<RuleStatisticsResult> getTuplesKafkaSink(ParameterTool parameterTool) {
-        String defaultTopic = parameterTool.get(
+    public static SinkFunction<RuleStatisticsResult> getKafkaSink (ParameterTool parameterTool) {
+        String resultTopic = parameterTool.get(
                 ProjectSettings.DEFAULT_RESULT_SINK_TOPIC_NAME,
                 ProjectSettings.DEFAULT_RESULT_SINK_TOPIC
         );
 
         return new FlinkKafkaProducer<>(
-                defaultTopic,
+                resultTopic,
                 new RuleStatisticsResultSerializationSchema(),
                 parameterTool.getProperties()
         );

@@ -13,6 +13,9 @@ import timestamp_utils.LogTimestampAndWatermarkStrategy;
 import window_utils.functions.LogCountingWindowFunction;
 
 public class LogAnalysis3_2 {
+    /*
+    Example output: {"system":"B","log_type":"ERROR","count":1,"start_timestamp":1632077370000,"end_timestamp":1632077375000}
+    * */
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 

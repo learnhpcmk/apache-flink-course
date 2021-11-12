@@ -5,6 +5,7 @@ import org.apache.flink.api.common.ExecutionConfig;
 import org.apache.flink.api.common.typeutils.TypeSerializer;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.assigners.WindowAssigner;
+import org.apache.flink.streaming.api.windowing.triggers.EventTimeTrigger;
 import org.apache.flink.streaming.api.windowing.triggers.Trigger;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import window_utils.triggers.DynamicTrigger;
@@ -29,7 +30,6 @@ public class DynamicWindowAssigner extends WindowAssigner<MatchedMessage, TimeWi
                     "Is the time characteristic set to 'ProcessingTime', or did you forget to call " +
                     "'DataStream.assignTimestampsAndWatermarks(...)'?");
         }
-
         return TimeWindowCollectionFactory.create(element, timestamp, windowType);
     }
 

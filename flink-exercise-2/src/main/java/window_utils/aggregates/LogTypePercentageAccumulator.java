@@ -12,7 +12,10 @@ import java.util.stream.Collectors;
 public class LogTypePercentageAccumulator {
 
     Map<String, Integer> countingMap;
+    //ERROR - 1, DEBUG - 1, INFO - 2 --> count = 4
     String system;
+    long startTimestamp = Long.MAX_VALUE;
+    long endTimestamp = Long.MIN_VALUE;
 
     public LogTypePercentageAccumulator() {
         countingMap = new HashMap<>();
@@ -23,12 +26,21 @@ public class LogTypePercentageAccumulator {
         this.system = system;
     }
 
-    public LogTypePercentageAccumulator add(Log value) {
-        countingMap.putIfAbsent(value.getType(), 0);
-        countingMap.computeIfPresent(value.getType(), (k, v) -> ++v);
+    public LogTypePercentageAccumulator(String system, Map<String, Integer> countingMap, long startTimestamp, long endTimestamp) {
+        this.countingMap = countingMap;
+        this.system = system;
+        this.startTimestamp = startTimestamp;
+        this.endTimestamp = endTimestamp;
+    }
+
+    public LogTypePercentageAccumulator add(Log log) {
+        countingMap.putIfAbsent(log.getType(), 0);
+        countingMap.computeIfPresent(log.getType(), (k, v) -> ++v);
         return new LogTypePercentageAccumulator(
-                value.getSystem(),
-                countingMap
+                log.getSystem(),
+                countingMap,
+                Long.min(startTimestamp, log.getTimestamp()),
+                Long.max(endTimestamp, log.getTimestamp())
         );
     }
 
@@ -40,7 +52,7 @@ public class LogTypePercentageAccumulator {
                 .map(entry -> new LogTypePercentage(entry.getKey(), (double) entry.getValue() * 100.0 / count))
                 .collect(Collectors.toList());
 
-        return new LogTypePercentagesResult(system, (long) count, null, null, logTypePercentages);
+        return new LogTypePercentagesResult(system, (long) count, startTimestamp, endTimestamp, logTypePercentages);
     }
 
     public LogTypePercentageAccumulator merge(LogTypePercentageAccumulator other) {
@@ -50,6 +62,5 @@ public class LogTypePercentageAccumulator {
                 this.system,
                 newCountingMap
         );
-
     }
 }

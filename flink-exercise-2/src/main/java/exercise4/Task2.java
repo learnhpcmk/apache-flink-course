@@ -6,6 +6,7 @@ import model.pojo.SystemsListByLogTypeResult;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import process_functions.SystemListingProcess;
+import process_functions.SystemListingProcessImproved;
 import source.test_sources.LogsJsonSource;
 import timestamp_utils.LogTimestampAndWatermarkStrategy;
 
@@ -19,7 +20,7 @@ public class Task2 {
                 .assignTimestampsAndWatermarks(new LogTimestampAndWatermarkStrategy());
 
         DataStream<SystemsListByLogTypeResult> result = logsStream.keyBy(Log::getType)
-                .process(new SystemListingProcess());
+                .process(new SystemListingProcessImproved());
 
         result.print();
 

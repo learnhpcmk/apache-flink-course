@@ -26,7 +26,7 @@ public class LogTimestampAndWatermarkStrategy implements WatermarkStrategy<Log> 
 
             @Override
             public void onPeriodicEmit(WatermarkOutput output) {
-//                output.emitWatermark(new Watermark(System.currentTimeMillis()));
+                output.emitWatermark(new Watermark(System.currentTimeMillis()));
             }
         };
     }

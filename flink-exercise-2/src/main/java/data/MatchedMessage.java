@@ -15,4 +15,12 @@ public class MatchedMessage {
     public String getPartitioningKey () {
         return controlMessage.getUserId() + "___" + controlMessage.getRuleId();
     }
+
+    @Override
+    public String toString() {
+        return "MatchedMessage{" +
+                "controlMessage=" + controlMessage +
+                ", inputMessage=" + inputMessage +
+                '}';
+    }
 }

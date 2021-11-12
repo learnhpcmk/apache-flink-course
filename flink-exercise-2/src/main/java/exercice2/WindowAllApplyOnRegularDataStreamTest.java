@@ -1,6 +1,7 @@
 package exercice2;
 
 import model.StudentRecord;
+import org.apache.flink.streaming.api.datastream.AllWindowedStream;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.windowing.AllWindowFunction;
@@ -21,9 +22,10 @@ public class WindowAllApplyOnRegularDataStreamTest {
         DataStream<StudentRecord> studentRecordDataStream = inputStream.map(StudentRecord::parse);
 
 
+        AllWindowedStream<StudentRecord, TimeWindow> allWindowedStream = studentRecordDataStream
+                .windowAll(TumblingProcessingTimeWindows.of(Time.seconds(1)));
 
-        DataStream<String> result = studentRecordDataStream
-                .windowAll(TumblingProcessingTimeWindows.of(Time.seconds(1)))
+        DataStream<String> result = allWindowedStream
                 .apply(new AllWindowFunction<StudentRecord, String, TimeWindow>() {
                     @Override
                     public void apply(TimeWindow window, Iterable<StudentRecord> windowValues, Collector<String> out) throws Exception {

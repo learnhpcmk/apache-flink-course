@@ -16,7 +16,7 @@ public class SinkFactory {
         if (test) {
             return new PrintSinkFunction<>();
         } else {
-            return KafkaSinkStream.getTuplesKafkaSink(parameterTool);
+            return KafkaSinkStream.getKafkaSink(parameterTool);
         }
     }
 }

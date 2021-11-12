@@ -19,6 +19,8 @@ public class SystemListingProcessImproved extends KeyedProcessFunction<String, L
     ListState<Log> last10Logs;
     ValueState<Integer> listStateCount;
 
+
+
     @Override
     public void open(Configuration parameters) throws Exception {
         super.open(parameters);
@@ -27,7 +29,7 @@ public class SystemListingProcessImproved extends KeyedProcessFunction<String, L
 
         ValueStateDescriptor<Integer> countDescriptor = new ValueStateDescriptor<Integer>("countOfListState", Integer.class);
         listStateCount = getRuntimeContext().getState(countDescriptor);
-        listStateCount.update(0);
+
     }
 
     private List<Log> getAsList() throws Exception {
@@ -38,6 +40,10 @@ public class SystemListingProcessImproved extends KeyedProcessFunction<String, L
 
     @Override
     public void processElement(Log value, Context ctx, Collector<SystemsListByLogTypeResult> out) throws Exception {
+        if (listStateCount.value()==null) {
+            listStateCount.update(0);
+        }
+
         if (listStateCount.value() == 10) {
             List<Log> currentLogs = getAsList();
             long start = currentLogs.stream().mapToLong(Log::getTimestamp).min().getAsLong();

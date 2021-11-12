@@ -41,7 +41,7 @@ public class LogsJsonSource implements SourceFunction<String> {
             String type = logTypes.get(random.nextInt(logTypes.size()));
             String system = systems.get(random.nextInt(systems.size()));
             long timestamp = Instant.now().toEpochMilli();
-            if (lateEvents && i % 100 == 0) {
+            if (lateEvents && i % 50 == 0) {
                 timestamp = LocalDateTime.now().minusDays(10).minusHours(5).minusSeconds(100)
                         .atZone(ZoneId.systemDefault())
                         .toInstant()
@@ -74,7 +74,7 @@ public class LogsJsonSource implements SourceFunction<String> {
             jsonObject.put("system", system);
             ctx.collect(jsonObject.toString());
 
-            Thread.sleep((delay && i % 300 == 0) ? random.nextInt(1000) + 2000 : random.nextInt(500) + 50);
+            Thread.sleep((delay && i % 100 == 0) ? random.nextInt(1000) + 2100 : random.nextInt(200) + 50);
         }
 
     }

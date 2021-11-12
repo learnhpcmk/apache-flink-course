@@ -3,6 +3,7 @@ package exercise4;
 import com.google.gson.Gson;
 import data.MatchedMessage;
 import model.InputMessage;
+import model.pojo.RuleStatisticsResult;
 import model.pojo.control.ControlMessage;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.datastream.BroadcastStream;
@@ -40,12 +41,11 @@ public class DynamicConfig1 {
         DataStream<MatchedMessage> matchedMessageDataStream = inputStream.connect(broadcastControlStream)
                 .process(new MatchingProcessFunction());
 
-        matchedMessageDataStream.keyBy(MatchedMessage::getPartitioningKey)
+        SingleOutputStreamOperator<RuleStatisticsResult> results = matchedMessageDataStream.keyBy(MatchedMessage::getPartitioningKey)
                 .window(new DynamicWindowAssigner(eventTime))
-                .apply(new DynamicStatisticalAnalysisWindowFunction())
-                .print();
+                .apply(new DynamicStatisticalAnalysisWindowFunction());
 
-//        controlStream.print();
+        results.print();
 
         env.execute(DynamicConfig1.class.getName());
     }

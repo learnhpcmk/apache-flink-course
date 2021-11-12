@@ -17,19 +17,20 @@ public class AssignSeverityToLogsProcess extends KeyedBroadcastProcessFunction<S
     @Override
     public void processElement(Log log, ReadOnlyContext ctx, Collector<Log> out) throws Exception {
         String system = ctx.getCurrentKey();
+//        String system = log.getSystem();
         ReadOnlyBroadcastState<String, SeverityAssignerMessage> state = ctx.getBroadcastState(StateDescriptors.BROADCAST_STATE_DESCRIPTOR);
 
         if (state.contains(system)){
             SeverityAssignerMessage severityAssignerMessage = state.get(system);
 
-            Long severityToBeAssigner = severityAssignerMessage.getSeverities()
+            Long severityToBeAssigned = severityAssignerMessage.getSeverities()
                     .stream()
                     .filter(severity -> severity.getLogType().equals(log.getType()))
                     .findFirst()
                     .map(Severity::getSeverity)
                     .orElse(null);
 
-            log.setSeverity(severityToBeAssigner);
+            log.setSeverity(severityToBeAssigned);
         }
 
         out.collect(log);

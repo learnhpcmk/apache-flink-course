@@ -27,4 +27,13 @@ public class ProjectSettings {
 
     public static final String DEFAULT_RESULT_SINK_TOPIC = "result_topic";
     public static final String DEFAULT_RESULT_SINK_TOPIC_NAME = "result_topic";
+
+    public static final String MESSAGE_QUEUE = "data_queue";
+    public static final String DEFAULT_MESSAGE_QUEUE = "data_queue";
+
+    public static final String CONTROL_QUEUE = "control_queue";
+    public static final String DEFAULT_CONTROL_QUEUE = "control_queue";
+
+    public static final String RESULT_QUEUE = "result_queue";
+    public static final String DEFAULT_RESULT_QUEUE = "result_queue";
 }

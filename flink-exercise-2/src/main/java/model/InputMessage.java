@@ -4,7 +4,6 @@ import org.json.JSONObject;
 
 public class InputMessage {
     JSONObject jsonObject;
-    private Long timestampMs;
 
     public InputMessage(JSONObject jsonObject) {
         this.jsonObject = jsonObject;
@@ -32,14 +31,6 @@ public class InputMessage {
         } else {
             return null;
         }
-    }
-
-    public void setTimestampMs(Long timestampMs) {
-        this.timestampMs = timestampMs;
-    }
-
-    public Long getTimestampMs() {
-        return timestampMs;
     }
 
     @Override

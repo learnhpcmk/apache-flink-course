@@ -20,25 +20,25 @@ public class DifferenceBetweenErrorsCalculator extends KeyedProcessFunction<Stri
         super.open(parameters);
         ValueStateDescriptor<Log> descriptor = new ValueStateDescriptor<>(
                 "lastErrorLog",
-                TypeInformation.of(new TypeHint<Log>() {
-                })
+                Log.class
         );
+
         lastErrorState = getRuntimeContext().getState(descriptor);
     }
 
     @Override
-    public void processElement(Log value, Context ctx, Collector<ErrorDeltaTimeResult> out) throws Exception {
-        if (value.getType().equals(ERROR)) {
+    public void processElement(Log newLog, Context ctx, Collector<ErrorDeltaTimeResult> out) throws Exception {
+        if (newLog.getType().equals(ERROR)) {
             if (lastErrorState.value() != null) {
                 Log lastError = lastErrorState.value();
                 out.collect(new ErrorDeltaTimeResult(
                         ctx.getCurrentKey(), //system name, the key of the partition
                         lastError.getTimestamp(),
-                        value.getTimestamp(),
-                        value.getTimestamp()-lastError.getTimestamp()
+                        newLog.getTimestamp(),
+                        newLog.getTimestamp()-lastError.getTimestamp()
                 ));
             }
-            lastErrorState.update(value);
+            lastErrorState.update(newLog);
         }
     }
 }

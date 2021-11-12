@@ -18,20 +18,20 @@ import java.time.Duration;
 
 public class HelloWorld {
     public static void main(String[] args) {
+        //1. Creation of stream execution environment
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-//        env.setRuntimeMode(RuntimeExecutionMode.STREAMING);
-
+        //2. Creation of input data streams
         DataStream<String> inputStream = env.addSource(new TestSource());
-        DataStream<String> inputStream2 = env.addSource(new TestSource());
 
+        //3. data transformation/processing
 
-
-
+        //4. Sending the data to a data sink
         inputStream.print();
 
         try {
-            env.execute("Job to print random values");
+            //5. Execution
+            env.execute(HelloWorld.class.getName());
         } catch (Exception e) {
             e.printStackTrace();
         }

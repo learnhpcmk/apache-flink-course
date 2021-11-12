@@ -21,7 +21,7 @@ public class LogAnalysis5 {
                 .assignTimestampsAndWatermarks(new LogTimestampAndWatermarkStrategy());
 
         SingleOutputStreamOperator<LogTypePercentagesResult> result = logsStream.keyBy(Log::getSystem)
-                .window(EventTimeSessionWindows.withGap(Time.milliseconds(2000)))
+                .window(EventTimeSessionWindows.withGap(Time.milliseconds(4000)))
                 .apply(new LogTypePercentageWindowFunction());
 
         result.print();

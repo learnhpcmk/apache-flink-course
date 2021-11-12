@@ -13,6 +13,10 @@ import timestamp_utils.LogTimestampAndWatermarkStrategy;
 import window_utils.functions.LogTypePercentageWindowFunction;
 
 public class LogAnalysis4_2 {
+    /*
+    Example of the output.
+    {"system":"A","count":6,"start_timestamp":1632242770000,"end_timestamp":1632242780000,"log_type_percentages":[{"log_type":"INFO","percentage":16.666666666666668},{"log_type":"DEBUG","percentage":16.666666666666668},{"log_type":"WARN","percentage":66.66666666666667}]}
+     */
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 

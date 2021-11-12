@@ -13,6 +13,9 @@ import source.test_sources.LogsJsonSource;
 import timestamp_utils.LogTimestampAndWatermarkStrategy;
 
 public class LogAnalysis3 {
+    /*
+    Example output: {"system":"D","log_type":"ERROR","count":1}
+    * */
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
