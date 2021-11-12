@@ -63,26 +63,6 @@ public class LogProcessingWithCEP {
                         warnings.size(),
                         timespanForWarnings,
                         timeBetweenWarningsAndError));
-
-
-
-//                for (Map.Entry<String, List<Log>> stringListEntry : map.entrySet()) {
-//
-//
-//
-//                    String pattern = stringListEntry.getKey();
-//                    List<Log> logs = stringListEntry.getValue();
-//                    if (logs.size()!=0){
-//                        String system = logs.get(0).getSystem();
-//                        long startTimestamp = logs.stream().mapToLong(Log::getTimestamp).min().getAsLong();
-//                        long endTimestamp = logs.stream().mapToLong(Log::getTimestamp).max().getAsLong();
-//                        collector.collect(String.format("Pattern: %s detected on system %s with %d logs in the timespan of %d ms",
-//                                pattern,
-//                                system,
-//                                logs.size(),
-//                                endTimestamp-startTimestamp));
-//                    }
-//                }
             }
         }).print();
 
