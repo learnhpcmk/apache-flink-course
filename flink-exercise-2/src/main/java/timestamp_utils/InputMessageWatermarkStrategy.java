@@ -10,6 +10,11 @@ public class InputMessageWatermarkStrategy implements WatermarkStrategy<InputMes
     Boolean eventTime;
     String jsonTimestampField;
 
+    public InputMessageWatermarkStrategy(){
+        eventTime=true;
+        jsonTimestampField = "timestamp";
+    }
+
 
     public InputMessageWatermarkStrategy(ParameterTool parameterTool) {
         this.eventTime = parameterTool.getBoolean("event_time", Boolean.TRUE);

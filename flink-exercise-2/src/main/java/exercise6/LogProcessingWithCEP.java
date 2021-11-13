@@ -57,7 +57,7 @@ public class LogProcessingWithCEP {
                 long timeBetweenWarningsAndError = error.getTimestamp() - end;
 
                 collector.collect(String.format("An error was detected on the system %s at %d. The error was preceded by " +
-                        "%s warnings in the timespan of %d ms. The error occurred %s ms after the last warning",
+                        "%d warnings in the timespan of %d ms. The error occurred %d ms after the last warning",
                         error.getSystem(),
                         error.getTimestamp(),
                         warnings.size(),

@@ -33,6 +33,14 @@ public class InputMessage {
         }
     }
 
+    public Integer getFieldAsInteger(String field){
+        if (hasField(field)){
+            return Integer.parseInt(jsonObject.get(field).toString());
+        } else {
+            return null;
+        }
+    }
+
     @Override
     public String toString() {
         return jsonObject.toString();
