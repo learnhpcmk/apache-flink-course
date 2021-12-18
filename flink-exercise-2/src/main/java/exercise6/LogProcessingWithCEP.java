@@ -32,7 +32,7 @@ public class LogProcessingWithCEP {
                     public boolean filter(Log log) {
                         return log.getType().equalsIgnoreCase("warn");
                     }
-                }).timesOrMore(3)
+                }).timesOrMore(3).consecutive()
                 .next("errorDetected").where(new SimpleCondition<Log>() {
                     @Override
                     public boolean filter(Log log) {
